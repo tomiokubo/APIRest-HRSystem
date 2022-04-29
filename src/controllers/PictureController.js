@@ -12,12 +12,19 @@ class PictureController {
           errors: [err.code],
         });
       }
-      const original_name = req.file.originalname;
-      const file_name = req.file.filename;
-      const { worker_id } = req.body;
-      const picture = await Picture.create({ original_name, file_name, worker_id });
 
-      return res.json(picture);
+      try {
+        const original_name = req.file.originalname;
+        const file_name = req.file.filename;
+        const { worker_id } = req.body;
+        const picture = await Picture.create({ original_name, file_name, worker_id });
+
+        return res.json(picture);
+      } catch (e) {
+        return res.status(400).json({
+          errors: ['No such user'],
+        });
+      }
     });
   }
 }
