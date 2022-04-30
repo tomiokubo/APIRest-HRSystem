@@ -1,5 +1,4 @@
 import Sequelize, { Model } from 'sequelize';
-import appConfig from '../config/app';
 
 export default class Picture extends Model {
   static init(sequelize) {
@@ -25,7 +24,7 @@ export default class Picture extends Model {
       url: {
         type: Sequelize.VIRTUAL,
         get() {
-          return `${appConfig.url}/images/${this.getDataValue('file_name')}`;
+          return `${process.env.APP_URL}/images/${this.getDataValue('file_name')}`;
         },
       },
     }, {
