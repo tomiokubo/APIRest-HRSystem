@@ -16,6 +16,7 @@ dotenv.config();
 
 const whiteList = [
   'http://192.168.1.70',
+  'http://192.168.0.22',
   'http://localhost:3000',
   'http://192.168.1.165:3000',
   'http://192.168.0.19:3000',
