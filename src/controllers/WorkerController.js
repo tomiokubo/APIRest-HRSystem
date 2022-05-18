@@ -5,7 +5,7 @@ class WorkerController {
   async index(req, res) {
     const workers = await Worker.findAll({
       attributes: ['id', 'first_name', 'last_name', 'email', 'age', 'weight', 'height'],
-      order: [['id', 'DESC']],
+      order: [['id', 'DESC'], [Picture, 'id', 'DESC']],
       include: {
         model: Picture,
         attributes: ['url', 'file_name'],
