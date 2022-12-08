@@ -1,10 +1,12 @@
 import Sequelize from 'sequelize';
 import databeConfig from '../config/database';
-import Worker from '../models/Worker';
-import User from '../models/User';
-import Picture from '../models/Picture';
 
-const models = [Worker, User, Picture];
+import User from '../models/User';
+import Sale from '../models/Sale';
+import Cancel from '../models/Cancel';
+import Devolution from '../models/Devolution';
+
+const models = [User, Sale, Cancel, Devolution];
 
 const connection = new Sequelize(databeConfig);
 

@@ -7,34 +7,41 @@ class UserController {
       const { id, name, email } = newUser;
       return res.json({ id, name, email });
     } catch (e) {
-      return res.status(400).json({
-        errors: e.errors.map((error) => error.message),
-      });
+      // return res.status(400).json({
+      //   errors: e.errors.map((error) => error.message),
+      // });
+      return console.log(e);
     }
   }
 
   async index(req, res) {
     try {
-      const users = await User.findAll({ attributes: ['id', 'name'] });
-      return res.json(users);
+      const { cpf } = req.params;
+      const user = await User.findOne({
+        where: { cpf },
+        attributes: ['id', 'name'],
+      });
+      return res.json(user);
     } catch (error) {
+      console.log(error);
       return res.json(null);
     }
   }
 
   async show(req, res) {
     try {
-      const user = await User.findByPk(req.params.id);
-      const { id, name, email } = user;
-      return res.json({ id, name, email });
+      const user = await User.findByPk(req.params.id, {
+        attributes: { exclude: ['passwordHash'] },
+      });
+      return res.json(user);
     } catch (error) {
-      return res.json(null);
+      return res.json(error);
     }
   }
 
   async update(req, res) {
     try {
-      const user = await User.findByPk(req.userId);
+      const user = await User.findByPk(req.body.id);
       if (!user) {
         return res.status(400).json({
           errors: ['No such user'],
@@ -42,13 +49,14 @@ class UserController {
       }
 
       const updatedUser = await user.update(req.body);
-      const { id, name, email } = updatedUser;
+      const { id } = updatedUser;
 
-      return res.json({ id, name, email });
+      return res.json({ id });
     } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((error) => error.message),
+        e,
       });
+      // return console.log(e);
     }
   }
 

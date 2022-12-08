@@ -1,29 +1,27 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('pictures', {
+    await queryInterface.createTable('devolutions', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      original_name: {
-        type: Sequelize.STRING,
+      value: {
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
-      file_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      worker_id: {
+      sale: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'workers',
+          model: 'sales',
           key: 'id',
         },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+      },
+      date: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -37,6 +35,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('pictures');
+    await queryInterface.dropTable('devolutions');
   },
 };

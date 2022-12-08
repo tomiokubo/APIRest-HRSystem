@@ -1,34 +1,26 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('workers', {
+    await queryInterface.createTable('cancels', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      first_name: {
-        type: Sequelize.STRING,
+      value: {
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
-      last_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      age: {
+      sale: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'sales',
+          key: 'id',
+        },
       },
-      weight: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-      },
-      height: {
-        type: Sequelize.FLOAT,
+      date: {
+        type: Sequelize.DATE,
         allowNull: false,
       },
       created_at: {
@@ -43,6 +35,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable('workers');
+    await queryInterface.dropTable('cancels');
   },
 };
